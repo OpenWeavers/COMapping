@@ -7,4 +7,4 @@
  */
 session_start();
 session_start();
-header("location:index.php");
+header("location:index.html");
