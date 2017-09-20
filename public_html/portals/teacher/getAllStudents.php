@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vinyas
- * Date: 9/17/17
- * Time: 4:30 PM
- */
-require 'com/config/DBHelper.php';
+require '../../com/config/DBHelper.php';
 
 $db = new DBHelper();
 $conn = $db->getConnection();

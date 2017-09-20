@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: vinyas
- * Date: 9/15/17
- * Time: 9:14 PM
- */
 class CIE
 {
     var $max_co;

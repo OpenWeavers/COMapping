@@ -1,11 +1,5 @@
 <?php
 require 'com/config/DBHelper.php';
-/**
- * Created by PhpStorm.
- * User: vinyas
- * Date: 9/18/17
- * Time: 7:55 PM
- */
 session_start();
 if(!empty(filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL))
     && !empty(filter_input(INPUT_POST, "password"))
