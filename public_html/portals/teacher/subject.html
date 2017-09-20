@@ -8,9 +8,9 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
     <!-- Bootstrap core CSS     -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
     <!--  Material Dashboard CSS    -->
-    <link href="../assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet"/>
+    <link href="../../assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet"/>
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -86,15 +86,17 @@
                     <div class="form-group">
                         <label class="control-label" for="subject">Subject Name</label>
                         <div class="selectContainer">
-                        <select id="subject"  ng-model="selectedSubject" ng-options="x as x.name for x in subjectList" class="form-control">
-                        </select>
+                            <select id="subject" ng-model="selectedSubject"
+                                    ng-options="x as x.name for x in subjectList" class="form-control">
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="noOfCOs">Number of COs</label>
-                        <input type="number" id="noOfCOs"  class="form-control" ng-model="noOfCOs" title="Number of CO's " ng-change="changeCO()"/>
+                        <input type="number" id="noOfCOs" class="form-control" ng-model="noOfCOs"
+                               title="Number of CO's " ng-change="changeCO()"/>
                     </div>
                 </div>
                 <div class="container-fluid">
