@@ -81,7 +81,7 @@ if(!isset($_SESSION['teacher_login']))   {
                                     <a href="#">Manage Account</a>
                                 </li>
                                 <li>
-                                    <a href="#">Logout</a>
+                                    <a href="../../logout.php">Logout</a>
                             </ul>
                         </li>
                     </ul>
