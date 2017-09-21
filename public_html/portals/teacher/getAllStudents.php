@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!isset($_SESSION['teacher_login']))   {
+    header('location:../../');
+}
 require '../../com/config/DBHelper.php';
 
 $db = new DBHelper();

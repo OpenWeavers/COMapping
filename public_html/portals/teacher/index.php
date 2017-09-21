@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION['teacher_login']))   {
+    header('location:../../');
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -32,19 +39,19 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="active">
-                    <a href="index.html">
+                    <a href="index.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a href="subject.html">
+                    <a href="subject.php">
                         <i class="material-icons">book</i>
                         <p>Manage Subjects</p>
                     </a>
                 </li>
                 <li>
-                    <a href="student.html">
+                    <a href="student.php">
                         <i class="material-icons">assignment</i>
                         <p>Manage Students</p>
                     </a>
@@ -54,19 +61,19 @@
     </div>
 </div>
 </body>
-<script src="../assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/js/material.min.js" type="text/javascript"></script>
+<script src="../../assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
+<script src="../../assets/js/chartist.min.js"></script>
 <!--  Dynamic Elements plugin -->
-<script src="../assets/js/arrive.min.js"></script>
+<script src="../../assets/js/arrive.min.js"></script>
 <!--  PerfectScrollbar Library -->
-<script src="../assets/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="../../assets/js/perfect-scrollbar.jquery.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../assets/js/bootstrap-notify.js"></script>
+<script src="../../assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="../assets/js/material-dashboard.js?v=1.2.0"></script>
+<script src="../../assets/js/material-dashboard.js?v=1.2.0"></script>
 </html>
