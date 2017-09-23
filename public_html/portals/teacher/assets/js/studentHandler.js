@@ -61,7 +61,19 @@ app.controller('myController', function ($scope, $window, $http) {
         // Read $scope.selectedSubject.id
         // Fetch the students according to their id
         // Update $scope.studentList
+        $http({
+            method : 'POST',
+            url : 'getAllStudents.php',
+            data : {subcode : $scope.selectedSubject.id}
+        }).then(function (response) {
+            $scope.studentList = JSON.parse(angular.fromJson(response.data).data);
+            $scope.selectedStudent = $scope.studentList[0];
+        }, function (response) {
+            var recieved = angular.fromJson(response.data);
+            $window.alert(recieved.data);
+        })
     };
 
     $scope.changeCO();
+    $scope.updateStudents();
 });
