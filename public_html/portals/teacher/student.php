@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['teacher_login']))   {
+if (!isset($_SESSION['teacher_login'])) {
     header('location:../../');
 }
 ?>
@@ -14,12 +14,8 @@ if(!isset($_SESSION['teacher_login']))   {
     <title>Teacher Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-    <!-- Bootstrap core CSS     -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--  Material Dashboard CSS    -->
     <link href="../../assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet"/>
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet'
           type='text/css'>
@@ -30,9 +26,11 @@ if(!isset($_SESSION['teacher_login']))   {
 
 <body>
 <div class="wrapper">
-    <div class="sidebar" data-color="green" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
         <div class="logo">
-            Teacher Dashboard
+            <a href="#" class=" simple-text">
+                Teacher Dashboard
+            </a>
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
@@ -90,39 +88,65 @@ if(!isset($_SESSION['teacher_login']))   {
         </nav>
         <div class="content" ng-app="studentHandler" ng-controller="myController">
             <form ng-submit="submitSubject()">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="subject">Subject Name</label>
-                        <div class="selectContainer">
-                        <select id="subject"  ng-model="selectedSubject" ng-options="x as x.name for x in subjectList" class="form-control" ng-change="updateStudents()">
-                        </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="usn">Student USN</label>
-                        <select id="usn"  ng-model="selectedStudent" ng-options="x as x.usn for x in studentList" class="form-control"">
-                        </select>
-                    </div>
-                </div>
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-plain">
-                                <div class="card-header" data-background-color="green">
-                                    <h4 class="title">CO attained by {{ selectedStudent.name}}</h4>
-                                    <p class="category">Enter the CO attained in each CIE</p>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="subject">Subject Name</label>
+                                <div class="selectContainer">
+                                    <select id="subject" ng-model="selectedSubject"
+                                            ng-options="x as x.name for x in subjectList" class="form-control">
+                                    </select>
                                 </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table table-hover">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="student">Student USN</label>
+                                <div class="selectContainer">
+                                    <select id="student" ng-model="selectedStudent"
+                                            ng-options="x as x.usn for x in studentList" ng-change="updateIndex()"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-primary" ng-click="prevStudent()">
+                                            <i class="material-icons">skip_previous</i>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-primary" ng-click="nextStudent()">
+                                            <i class="material-icons">skip_next</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <input type="submit" class="btn btn-success" value="Save">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
+                                    <h4 class="title">CO scored by {{selectedStudent.name}} in {{
+                                        selectedSubject.name}}</h4>
+                                    <p class="category">Enter scored CO for each CIE</p>
+                                </div>
+                                <div class="card-content">
+                                    <table id="cie_table" class="table-responsive">
                                         <tr>
-                                            <thead>
+                                            <thead class="text-primary">
                                             <th></th>
-                                            <th ng-repeat="row in subject.CIE[0] track by $index">CO{{$index + 1}}</th>
+                                            <th ng-repeat="row in subject.CIE[0] track by $index">CO{{$index + 1}}
+                                            </th>
                                             </thead>
                                         </tr>
                                         <tr ng-repeat="row in subject.CIE">
+
                                             <td>CIE{{$index + 1}}</td>
                                             <td ng-repeat="cell in row track by $index">
                                                 <input type="number" class="form-control" value="{{cell}}"
@@ -135,10 +159,8 @@ if(!isset($_SESSION['teacher_login']))   {
                         </div>
                     </div>
                 </div>
-                <div class="text-right">
-                    <input type="submit" class="btn btn-primary" value="Save">
-                </div>
             </form>
+
         </div>
     </div>
 </div>
@@ -154,8 +176,6 @@ if(!isset($_SESSION['teacher_login']))   {
 <script src="../../assets/js/perfect-scrollbar.jquery.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../../assets/js/bootstrap-notify.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="../../assets/js/material-dashboard.js?v=1.2.0"></script>
 </html>
