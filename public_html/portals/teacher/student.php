@@ -102,7 +102,8 @@ if(!isset($_SESSION['teacher_login']))   {
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="usn">Student USN</label>
-                        <input type="text" ng-maxlength="10" id="usn"  class="form-control" ng-model="selectedStudent.usn" title="Student USN" ng-change="changeStudent()"/>
+                        <select id="usn"  ng-model="selectedStudent" ng-options="x as x.usn for x in studentList" class="form-control"">
+                        </select>
                     </div>
                 </div>
                 <div class="container-fluid">
