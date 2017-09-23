@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['teacher_login']))   {
+if (!isset($_SESSION['teacher_login'])) {
     header('location:../../');
 }
 ?>
@@ -14,24 +14,23 @@ if(!isset($_SESSION['teacher_login']))   {
     <title>Teacher Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-    <!-- Bootstrap core CSS     -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--  Material Dashboard CSS    -->
     <link href="../../assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet"/>
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet'
           type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
     <script src="assets/js/subjectHandler.js"></script>
 </head>
 
 <body>
 <div class="wrapper">
-    <div class="sidebar" data-color="green" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
         <div class="logo">
-            Teacher Dashboard
+            <a href="#" class=" simple-text">
+                Teacher Dashboard
+            </a>
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
@@ -41,7 +40,7 @@ if(!isset($_SESSION['teacher_login']))   {
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="active">
+                <li  class="active">
                     <a href="subject.php">
                         <i class="material-icons">book</i>
                         <p>Manage Subjects</p>
@@ -89,40 +88,43 @@ if(!isset($_SESSION['teacher_login']))   {
         </nav>
         <div class="content" ng-app="subjectHandler" ng-controller="myController">
             <form ng-submit="submitSubject()">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="subject">Subject Name</label>
-                        <div class="selectContainer">
-                            <select id="subject" ng-model="selectedSubject"
-                                    ng-options="x as x.name for x in subjectList" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="noOfCOs">Number of COs</label>
-                        <input type="number" id="noOfCOs" class="form-control" ng-model="noOfCOs"
-                               title="Number of CO's " ng-change="changeCO()"/>
-                    </div>
-                </div>
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-plain">
-                                <div class="card-header" data-background-color="green">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="subject">Subject Name</label>
+                                <div class="selectContainer">
+                                    <select id="subject" ng-model="selectedSubject"
+                                            ng-options="x as x.name for x in subjectList" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="noOfCOs">Number of COs</label>
+                                <input type="number" id="noOfCOs" class="form-control" ng-model="noOfCOs"
+                                       title="Number of CO's " ng-change="changeCO()"/>
+                            </div>
+                            <div class="text-right">
+                                <input type="submit" class="btn btn-primary" value="Save">
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card">
+                                <div class="card-header" data-background-color="purple">
                                     <h4 class="title">Maximum CO Mapping for {{ selectedSubject.name}}</h4>
                                     <p class="category">Enter the maximum CO for each CIE</p>
                                 </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table table-hover">
+                                <div class="card-content">
+                                    <table id="cie_table" class="table-responsive">
                                         <tr>
-                                            <thead>
+                                            <thead class="text-primary">
                                             <th></th>
-                                            <th ng-repeat="row in subject.CIE[0] track by $index">CO{{$index + 1}}</th>
+                                            <th ng-repeat="row in subject.CIE[0] track by $index">CO{{$index + 1}}
+                                            </th>
                                             </thead>
                                         </tr>
                                         <tr ng-repeat="row in subject.CIE">
+
                                             <td>CIE{{$index + 1}}</td>
                                             <td ng-repeat="cell in row track by $index">
                                                 <input type="number" class="form-control" value="{{cell}}"
@@ -135,10 +137,8 @@ if(!isset($_SESSION['teacher_login']))   {
                         </div>
                     </div>
                 </div>
-                <div class="text-right">
-                    <input type="submit" class="btn btn-primary" value="Save">
-                </div>
             </form>
+
         </div>
     </div>
 </div>
@@ -154,8 +154,6 @@ if(!isset($_SESSION['teacher_login']))   {
 <script src="../../assets/js/perfect-scrollbar.jquery.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../../assets/js/bootstrap-notify.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="../../assets/js/material-dashboard.js?v=1.2.0"></script>
 </html>
