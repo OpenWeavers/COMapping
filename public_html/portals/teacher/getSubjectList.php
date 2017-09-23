@@ -11,7 +11,7 @@ $conn = $db->getConnection();
 $email = $_SESSION['teacher_login'];
 $query = "SELECT SUB.subject_code, SUB.name from subjects AS SUB, sections AS SEC, staff WHERE SUB.section_id=SEC.section_id AND staff.department=SEC.department AND staff.staff_id=SUB.staff_id AND staff.email='$email'";
 $data = [];
-if($res = $conn->$query($conn, $query)) {
+if($res = $conn->query( $query)) {
     $i = 0;
     while($row = $res->fetch_assoc())   {
         $data[$i]['subject_code'] = $row['subject_code'];
@@ -19,9 +19,7 @@ if($res = $conn->$query($conn, $query)) {
         $i++;
     }
     echo json_encode(array("success" => true, "data" => json_encode($data)));
-    return;
 }
 else    {
-    echo json_encode(array("success" => false));
-    return;
+    echo json_encode(array("success" => false,"data" => "Nothing"));
 }
