@@ -22,3 +22,4 @@ if($res = mysqli_query($conn, $query))
     }
 }
 echo json_encode($data);
+$db->closeConnection($conn);

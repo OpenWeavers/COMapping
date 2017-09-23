@@ -58,3 +58,4 @@ else    {
     echo json_encode(array("success" => false, "data" => "Empty request :("));
     return;
 }
+$db->closeConnection($conn);
