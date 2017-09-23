@@ -27,14 +27,16 @@ if(!isset($_SESSION['teacher_login']))   {
 
 <body>
 <div class="wrapper">
-    <div class="sidebar" data-color="green" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
         <!--
     Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
     Tip 2: you can also add an image using data-image tag
 -->
         <div class="logo">
-            Teacher Dashboard
+            <a href="#" class=" simple-text">
+                Teacher Dashboard
+            </a>
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
@@ -72,8 +74,6 @@ if(!isset($_SESSION['teacher_login']))   {
 <script src="../../assets/js/perfect-scrollbar.jquery.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../../assets/js/bootstrap-notify.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="../../assets/js/material-dashboard.js?v=1.2.0"></script>
 </html>
