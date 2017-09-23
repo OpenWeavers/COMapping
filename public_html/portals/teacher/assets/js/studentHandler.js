@@ -25,8 +25,8 @@ app.controller('myController', function ($scope, $window, $http) {
             name: "Vinyas N S"
         },
         {
-            usn: "4JC15CS130",
-            name: "Vinyas N S"
+            usn: "4JC15CS131",
+            name: "Vishakha M"
         }
     ];
     $scope.selectedStudent = $scope.studentList[0];
@@ -45,13 +45,6 @@ app.controller('myController', function ($scope, $window, $http) {
         }
         else {
             $window.alert("Insert valid name and number of COs");
-        }
-    };
-
-    $scope.changeStudent = function () {
-        for(x in $scope.studentList) {
-            if (x.usn == $scope.selectedStudent.usn)
-                $scope.selectedStudent = x;
         }
     };
 
