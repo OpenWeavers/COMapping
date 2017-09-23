@@ -6,28 +6,19 @@ app.controller('myController', function ($scope, $window, $http) {
         id: "",
         CIE: [[], [], [], [], []]
     };
-    $scope.subjectList = [
-        {
-            name:"DBMS",
-            id:"CS510"
-        },
-        {
-            name:"DS",
-            id:"CS310"
-        }
-    ];
+    $scope.subjectList = [];
     $scope.getSubjectList = function () {
         $http({
             method:'POST',
-            url: '../../getSubjectList.php'
+            url: 'getSubjectList.php'
         }).then(function (response) {
-            $scope.re = response.data;
+            $scope.subjectList = JSON.parse(angular.fromJson(response.data).data);
+            $scope.selectedSubject = $scope.subjectList[0];
         }, function (response) {
-            $scope.re = response.data;
-        })
+            var recieved = angular.fromJson(response.data);
+            alert(recieved.data);
+        });
     };
-
-    $scope.selectedSubject = $scope.subjectList[0];
     $scope.submitSubject = function () {
         if ($scope.selectedSubject.id && $scope.noOfCOs > 0) {
             $http({
@@ -53,5 +44,6 @@ app.controller('myController', function ($scope, $window, $http) {
             }
         }
     };
-    $scope.changeCO();$scope.getSubjectList();
+    $scope.changeCO();
+    $scope.getSubjectList();
 });
