@@ -18,3 +18,4 @@ if(isset($postdata) && !empty($postdata))   {
     $data = mysqli_fetch_assoc($res);
     echo $data."done";
 }
+$db->closeConnection($conn);

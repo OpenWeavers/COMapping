@@ -23,3 +23,4 @@ if($res = $conn->query( $query)) {
 else    {
     echo json_encode(array("success" => false,"data" => "Nothing"));
 }
+$db->closeConnection($conn);
