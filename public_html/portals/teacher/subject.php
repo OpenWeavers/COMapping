@@ -88,6 +88,10 @@ if(!isset($_SESSION['teacher_login']))   {
             </div>
         </nav>
         <div class="content" ng-app="subjectHandler" ng-controller="myController">
+            <input type="button" value="get" ng-click="getSubjectList()">
+            <div ng-bind="re">hi</div>
+            <input type="text" ng-model="re">
+            <span>{{re}}</span>
             <form ng-submit="submitSubject()">
                 <div class="col-sm-4">
                     <div class="form-group">

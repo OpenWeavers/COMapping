@@ -1,6 +1,7 @@
 var app = new angular.module('subjectHandler', []);
 app.controller('myController', function ($scope, $window, $http) {
     $scope.noOfCOs = 5;
+    $scope.re = "Default";
     $scope.subject = {
         id: "",
         CIE: [[], [], [], [], []]
@@ -15,12 +16,23 @@ app.controller('myController', function ($scope, $window, $http) {
             id:"CS310"
         }
     ];
+    $scope.getSubjectList = function () {
+        $http({
+            method:'POST',
+            url: '../../getSubjectList.php'
+        }).then(function (response) {
+            $scope.re = response.data;
+        }, function (response) {
+            $scope.re = response.data;
+        })
+    };
+
     $scope.selectedSubject = $scope.subjectList[0];
     $scope.submitSubject = function () {
         if ($scope.selectedSubject.id && $scope.noOfCOs > 0) {
             $http({
                 method: 'POST',
-                url: 'addStudent.php',
+                url: '../addStudent.php',
                 data: {name: $scope.selectedSubject.name, cie: JSON.stringify($scope.subject.CIE)}
             }).then(function (response) {
                 $scope.resp = response.data;
@@ -41,5 +53,5 @@ app.controller('myController', function ($scope, $window, $http) {
             }
         }
     };
-    $scope.changeCO();
+    $scope.changeCO();$scope.getSubjectList();
 });
