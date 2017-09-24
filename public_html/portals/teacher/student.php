@@ -95,7 +95,7 @@ if (!isset($_SESSION['teacher_login'])) {
                                 <label class="control-label" for="subject">Subject Name</label>
                                 <div class="selectContainer">
                                     <select id="subject" ng-model="selectedSubject"
-                                            ng-options="x as x.name for x in subjectList" class="form-control">
+                                            ng-options="x as x.name+' Section '+x.section_id for x in subjectList" class="form-control">
                                     </select>
                                 </div>
                             </div>
