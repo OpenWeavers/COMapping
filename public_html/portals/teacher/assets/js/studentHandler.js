@@ -9,12 +9,8 @@ app.controller('myController', function ($scope, $window, $http) {
     $scope.subjectList = [];
     $scope.studentList = [];
     $scope.selectedSubject = [];
-    //$scope.studentList = [
-      //  {usn: "4JC15CS129", name: "Vinayaka K V"},
-        //{usn: "4JC15CS130", name: "Vinyas N S"},
-        //{usn: "4JC15CS131", name: "Vishakha M"}
-    //];
     $scope.selectedStudent = [];
+
     var index = 0;
     var length = $scope.studentList.length;
 
@@ -36,8 +32,7 @@ app.controller('myController', function ($scope, $window, $http) {
             url: 'getSubjectList.php'
         }).then(function (response) {
             $scope.subjectList = JSON.parse(angular.fromJson(response.data).data);
-            $scope.selectedSubject = $scope.subjectList[0];
-
+            $scope.selectedSubject = null;
         }, function (response) {
             var recieved = angular.fromJson(response.data);
             $window.alert(recieved.data);
@@ -69,8 +64,11 @@ app.controller('myController', function ($scope, $window, $http) {
         $http({
             method: 'POST',
             url: 'getStudentList.php',
-            data:{subject_code:'CS540', semester:'5', section_id:'A'}
-            //data:{subject_code:$scope.selectedSubject.subject_code, semester:$scope.selectedSubject.semester, section_id:$scope.selectedSubject.section_id}
+            data: {
+                subject_code: $scope.selectedSubject.subject_code,
+                semester: $scope.selectedSubject.semester,
+                section_id: $scope.selectedSubject.section_id
+            }
         }).then(function (response) {
             $scope.studentList = JSON.parse(angular.fromJson(response.data).data);
             $scope.selectedStudent = $scope.studentList[0];
