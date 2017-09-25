@@ -16,10 +16,10 @@ if(isset($postdata) && !empty($postdata)) {
         $subject_code = $request->subject_code;
         $semester = $request->semester;
         $section_id = $request->section_id;
-        $section_id = 'A';
-        $semester = '5';
-        $subject_code = 'CS540';
-        $query = "SELECT U.usn, U.name FROM users as U, subjects as SUB WHERE U.section_id=SUB.section_id AND SUB.staff_id=(SELECT staff_id FROM staff where email='srinath@sjce.ac.in') AND SUB.subject_code='CS540' and U.section_id='A' and U.semester=5";
+        //$section_id = 'A';
+        //$semester = '5';
+        //$subject_code = 'CS540';
+        $query = "SELECT U.usn, U.name FROM users as U, subjects as SUB WHERE U.section_id=SUB.section_id AND SUB.staff_id=(SELECT staff_id FROM staff where email='$email') AND SUB.subject_code='$subject_code' and U.section_id='$section_id' and U.semester=$semester";
         $data = [];
         if($res = $conn->query( $query)) {
             $i = 0;
