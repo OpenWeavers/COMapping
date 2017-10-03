@@ -26,7 +26,7 @@ if (!isset($_SESSION['teacher_login'])) {
 
 <body>
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-image="../../assets/img/sidebar-1.jpg">
         <div class="logo">
             <a href="#" class=" simple-text">
                 Teacher Dashboard
