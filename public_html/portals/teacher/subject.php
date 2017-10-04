@@ -20,7 +20,6 @@ if (!isset($_SESSION['teacher_login'])) {
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet'
           type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
     <script src="assets/js/subjectHandler.js"></script>
 </head>
 
@@ -40,7 +39,7 @@ if (!isset($_SESSION['teacher_login'])) {
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li  class="active">
+                <li class="active">
                     <a href="subject.php">
                         <i class="material-icons">book</i>
                         <p>Manage Subjects</p>
@@ -95,7 +94,8 @@ if (!isset($_SESSION['teacher_login'])) {
                                 <label class="control-label" for="subject">Subject Name</label>
                                 <div class="selectContainer">
                                     <select id="subject" ng-model="selectedSubject"
-                                            ng-options="x as x.name+' Section '+x.section_id for x in subjectList" class="form-control">
+                                            ng-options="x as x.name+' Section '+x.section_id for x in subjectList"
+                                            class="form-control">
                                     </select>
                                 </div>
                             </div>
@@ -115,20 +115,26 @@ if (!isset($_SESSION['teacher_login'])) {
                                     <p class="category">Enter the maximum CO for each CIE</p>
                                 </div>
                                 <div class="card-content">
-                                    <table id="cie_table" class="table-responsive">
+                                    <table id="cie_table" class="table-responsive ">
                                         <tr>
                                             <thead class="text-primary">
-                                            <th></th>
-                                            <th ng-repeat="row in subject.CIE[0] track by $index">CO{{$index + 1}}
+                                            <th class="text-center "></th>
+                                            <th class="text-center " ng-repeat="row in subject.CIE[0] track by $index">
+                                                CO{{$index + 1}}
                                             </th>
+                                            <th class="text-center ">Total</th>
                                             </thead>
                                         </tr>
                                         <tr ng-repeat="row in subject.CIE">
-
-                                            <td>CIE{{$index + 1}}</td>
+                                            <td class="text-center ">CIE{{$index + 1}}</td>
                                             <td ng-repeat="cell in row track by $index">
-                                                <input type="number" class="form-control" value="{{cell}}"
+
+                                                <input type="number" class=" col-sm-1 text-center form-control"
+                                                       value="{{cell}}"
                                                        ng-model="row[$index]" min="0" step="1">
+                                            </td>
+                                            <td class=" col-sm-1 text-center">
+                                                {{getTotal(row)}}
                                             </td>
                                         </tr>
                                     </table>

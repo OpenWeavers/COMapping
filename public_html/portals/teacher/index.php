@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['teacher_login']))   {
+if (!isset($_SESSION['teacher_login'])) {
     header('location:../../');
 }
 ?>
@@ -14,15 +14,12 @@ if(!isset($_SESSION['teacher_login']))   {
     <title>Teacher Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-    <!-- Bootstrap core CSS     -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--  Material Dashboard CSS    -->
     <link href="../../assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet"/>
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet'
           type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 
 <body>
@@ -61,7 +58,41 @@ if(!isset($_SESSION['teacher_login']))   {
             </ul>
         </div>
     </div>
-</div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <p class="navbar-brand"> Subject Management </p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="material-icons">person</i>
+                                <p class="hidden-lg hidden-md">Profile</p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">Manage Account</a>
+                                </li>
+                                <li>
+                                    <a href="../../logout.php">Logout</a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <!-- Add content here -->
+        </div>
+    </div>
 </body>
 <script src="../../assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
