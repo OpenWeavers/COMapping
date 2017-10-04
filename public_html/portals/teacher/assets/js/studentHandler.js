@@ -78,6 +78,14 @@ app.controller('myController', function ($scope, $window, $http) {
             $window.alert(recieved.data);
         });
     };
+    $scope.getTotal = function (x) {
+        txt = 0;
+        for (i = 0; i < x.length; i++) {
+            c = x[i];
+            txt += c;
+        }
+        return txt;
+    };
     $scope.changeCO();
     $scope.getSubjectList();
     $scope.getStudentList();

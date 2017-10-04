@@ -1,4 +1,6 @@
 var app = new angular.module('subjectHandler', []);
+
+
 app.controller('myController', function ($scope, $window, $http) {
     $scope.noOfCOs = 5;
     $scope.re = "Default";
@@ -9,7 +11,7 @@ app.controller('myController', function ($scope, $window, $http) {
     $scope.subjectList = [];
     $scope.getSubjectList = function () {
         $http({
-            method:'POST',
+            method: 'POST',
             url: 'getSubjectList.php'
         }).then(function (response) {
             $scope.subjectList = JSON.parse(angular.fromJson(response.data).data);
@@ -35,7 +37,14 @@ app.controller('myController', function ($scope, $window, $http) {
             $window.alert("Insert valid name and number of COs");
         }
     };
-
+    $scope.getTotal = function (x) {
+        txt = 0;
+        for (i = 0; i < x.length; i++) {
+            c = x[i];
+            txt += c;
+        }
+        return txt;
+    };
     $scope.changeCO = function () {
         $scope.subject.CIE = [[], [], [], [], []];
         for (var i = 0; i < 5; i++) {
@@ -47,3 +56,4 @@ app.controller('myController', function ($scope, $window, $http) {
     $scope.changeCO();
     $scope.getSubjectList();
 });
+
