@@ -19,7 +19,34 @@ if(isset($postdata) && !empty($postdata)) {
         //$section_id = 'A';
         //$semester = '5';
         //$subject_code = 'CS540';
-        $query = "SELECT U.usn, U.name FROM users as U, subjects as SUB WHERE U.section_id=SUB.section_id AND SUB.staff_id=(SELECT staff_id FROM staff where email='$email') AND SUB.subject_code='$subject_code' and U.section_id='$section_id' and U.semester=$semester";
+        /*$query = "SELECT U.usn, U.name
+                  FROM users U, subjects SUB 
+                  WHERE U.section_id=SUB.section_id 
+                        AND SUB.staff_id=(SELECT staff_id 
+                                          FROM staff 
+                                          where email='$email') 
+                        AND SUB.subject_code='$subject_code' 
+                        AND U.section_id='$section_id' 
+                        AND U.semester='$semester'";
+        */
+        //$query2=SELECT e.usn, u.name FROM `electives` e, users u where e.sub_code='CS742' and u.semester=7 and e.usn=u.usn and u.section_id='A'
+        $query = "SELECT U.usn, U.name
+                  FROM users U, subjects SUB 
+                  WHERE (U.section_id=SUB.section_id 
+                         AND SUB.staff_id=(SELECT staff_id 
+                                           FROM staff 
+                                           where email='$email') 
+                         AND SUB.subject_code NOT IN (SELECT DISTINCT sub_code FROM electives)
+       					 AND SUB.subject_code='$subject_code'
+                         AND U.section_id='$section_id' 
+                         AND U.semester='$semester')
+                  OR (U.usn IN (SELECT usn 
+                                FROM electives 
+                                WHERE electives.sub_code=SUB.subject_code
+                 		              AND electives.sub_code='$subject_code')
+                      AND U.semester='$semester'
+                      AND U.section_id='$section_id'
+                      AND U.section_id=SUB.section_id)";
         $data = [];
         if($res = $conn->query( $query)) {
             $i = 0;
