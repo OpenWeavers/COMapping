@@ -33,9 +33,7 @@ if(isset($postdata) && !empty($postdata)) {
         $query = "SELECT U.usn, U.name
                   FROM users U, subjects SUB 
                   WHERE (U.section_id=SUB.section_id 
-                         AND SUB.staff_id=(SELECT staff_id 
-                                           FROM staff 
-                                           where email='$email') 
+                         AND SUB.staff_id='{$_SESSION['staff_id']}' 
                          AND SUB.subject_code NOT IN (SELECT DISTINCT sub_code FROM electives)
        					 AND SUB.subject_code='$subject_code'
                          AND U.section_id='$section_id' 

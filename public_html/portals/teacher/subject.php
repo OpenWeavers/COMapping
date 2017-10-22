@@ -105,7 +105,7 @@ if (!isset($_SESSION['teacher_login'])) {
                                        title="Number of CO's " ng-change="changeCO()"/>
                             </div>
                             <div class="text-right">
-                                <input type="submit" class="btn btn-primary" value="Save">
+                                <input type="submit" class="btn btn-primary" value="Save" ng-click="submitSubject()">
                             </div>
                         </div>
                         <div class="col-sm-7">

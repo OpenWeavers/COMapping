@@ -9,10 +9,9 @@ require '../../com/config/DBHelper.php';
 $db = new DBHelper();
 $conn = $db->getConnection();
 $email = $_SESSION['teacher_login'];
-$query = "SELECT SUB.subject_code, SUB.name, SUB.section_id, SUB.semester 
-          from subjects AS SUB, staff 
-          WHERE staff.staff_id=SUB.staff_id 
-                AND staff.email='$email'";
+$query = "SELECT subject_code, name, section_id, semester 
+          from subjects
+          WHERE staff_id={$_SESSION['staff_id']}";
 $data = [];
 if($res = $conn->query( $query)) {
     $i = 0;

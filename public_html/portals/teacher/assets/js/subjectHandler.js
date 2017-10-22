@@ -25,7 +25,7 @@ app.controller('myController', function ($scope, $window, $http) {
         if ($scope.selectedSubject.id && $scope.noOfCOs > 0) {
             $http({
                 method: 'POST',
-                url: '../addStudent.php',
+                url: 'addSubjectCIE.php',
                 data: {name: $scope.selectedSubject.name, cie: JSON.stringify($scope.subject.CIE)}
             }).then(function (response) {
                 $scope.resp = response.data;

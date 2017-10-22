@@ -14,8 +14,10 @@ if(isset($postdata) && !empty($postdata))   {
         if($category == 'teacher') {
             $query = "SELECT * FROM staff WHERE email='$email' AND password='$password' and activated=1";
             $res = $conn->query($query);
+            $r = $res->fetch_assoc();
             if($res->num_rows == 1) {
                 $_SESSION['teacher_login'] = $email;
+                $_SESSION['staff_id'] = $r['staff_id'];
                 $_SESSION['category'] = $category;
                 //header('location:portals/teacher/');
                 echo json_encode(array("success" => true, "data" => "Login success",
@@ -46,6 +48,7 @@ if(isset($postdata) && !empty($postdata))   {
         }
         else    {
             echo json_encode(array("success" => false, "data" => "Invalid category"));
+            $db->closeConnection($conn);
             return;
         }
     }
@@ -58,4 +61,3 @@ else    {
     echo json_encode(array("success" => false, "data" => "Empty request :("));
     return;
 }
-$db->closeConnection($conn);
