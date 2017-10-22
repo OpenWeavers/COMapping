@@ -12,7 +12,7 @@ $email = $_SESSION['teacher_login'];
 $query = "SELECT SUB.subject_code, SUB.name, SUB.section_id, SUB.semester 
           from subjects AS SUB, staff 
           WHERE staff.staff_id=SUB.staff_id 
-                AND staff.email='$email'";// AND staff.department=SEC.department
+                AND staff.email='$email'";
 $data = [];
 if($res = $conn->query( $query)) {
     $i = 0;
