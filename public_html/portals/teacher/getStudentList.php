@@ -20,17 +20,17 @@ if(isset($postdata) && !empty($postdata)) {
         //$semester = '5';
         //$subject_code = 'CS540';
         /*$query = "SELECT U.usn, U.name
-                  FROM users U, subjects SUB 
-                  WHERE U.section_id=SUB.section_id 
-                        AND SUB.staff_id=(SELECT staff_id 
-                                          FROM staff 
-                                          where email='$email') 
-                        AND SUB.subject_code='$subject_code' 
-                        AND U.section_id='$section_id' 
+                  FROM users U, subjects SUB
+                  WHERE U.section_id=SUB.section_id
+                        AND SUB.staff_id=(SELECT staff_id
+                                          FROM staff
+                                          where email='$email')
+                        AND SUB.subject_code='$subject_code'
+                        AND U.section_id='$section_id'
                         AND U.semester='$semester'";
         */
         //$query2=SELECT e.usn, u.name FROM `electives` e, users u where e.sub_code='CS742' and u.semester=7 and e.usn=u.usn and u.section_id='A'
-        $query = "SELECT U.usn, U.name
+        /*$query = "SELECT U.usn, U.name
                   FROM users U, subjects SUB 
                   WHERE (U.section_id=SUB.section_id 
                          AND SUB.staff_id='{$_SESSION['staff_id']}' 
@@ -45,6 +45,17 @@ if(isset($postdata) && !empty($postdata)) {
                       AND U.semester='$semester'
                       AND U.section_id='$section_id'
                       AND U.section_id=SUB.section_id)";
+        */
+        $query = "SELECT s.usn, s.name 
+                  FROM student s inner JOIN subject sub ON (s.section_id=sub.section_id AND s.semester=sub.semester)
+                  WHERE   
+                  (sub.subject_code='$subject_code' AND sub.section_id='$section_id')
+                  AND
+                  (
+	                (sub.subject_code NOT IN (SELECT DISTINCT subject_code from electives_taken))
+	                OR
+	                (s.usn IN (SELECT usn FROM electives_taken WHERE subject_code=sub.subject_code))
+                  )";
         $data = [];
         if($res = $conn->query( $query)) {
             $i = 0;

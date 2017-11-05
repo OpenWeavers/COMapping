@@ -10,7 +10,7 @@ if(isset($postdata) && !empty($postdata))   {
         $email = $conn->real_escape_string($request->email);
         $password = $conn->real_escape_string($request->password);
         $category = $conn->real_escape_string($request->category);
-        $password = sha1($password);
+        $password = hash("sha512", $password);
         if($category == 'teacher') {
             $query = "SELECT * FROM staff WHERE email='$email' AND password='$password' and activated=1";
             $res = $conn->query($query);
