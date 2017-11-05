@@ -9,6 +9,7 @@ app.controller('myController', function ($scope, $window, $http) {
         CIE: [[], [], [], [], []]
     };
     $scope.subjectList = [];
+    $scope.selectedSubject = {};
     $scope.getSubjectList = function () {
         $http({
             method: 'POST',
@@ -22,19 +23,21 @@ app.controller('myController', function ($scope, $window, $http) {
         });
     };
     $scope.submitSubject = function () {
+        //$scope.selectedSubject.id='CS110';
         if ($scope.selectedSubject.id && $scope.noOfCOs > 0) {
             $http({
                 method: 'POST',
                 url: 'addSubjectCIE.php',
-                data: {name: $scope.selectedSubject.name, cie: JSON.stringify($scope.subject.CIE)}
+                data: {subject_code: $scope.selectedSubject.id, noOfCo:$scope.noOfCOs, section_id:$scope.selectedSubject.section_id, cie: JSON.stringify($scope.subject.CIE)}
             }).then(function (response) {
                 $scope.resp = response.data;
             }, function (response) {
                 console.log(response.data, response.status);
-            })
+            });
         }
         else {
             $window.alert("Insert valid name and number of COs");
+        $window.alert($scope.selectedSubject.id);
         }
     };
     $scope.getTotal = function (x) {

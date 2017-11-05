@@ -18,11 +18,10 @@ if(isset($postdata) && !empty($postdata)) {
         $cie = $request->cie;
         $subject_code = $request->subject_code;
         $section_id = $request->section_id;
-        $query = "UPDATE subjects
+        $query = "UPDATE subject
                   SET no_of_co='$no_of_co', max_co='$cie'
                   WHERE subject_code='$subject_code'
-                        AND section_id='$section_id'
-                        AND staff_id='$staff_id'";
+                        AND section_id='$section_id'";
         if($res = $conn->query($query)) {
             echo json_encode(array("success" => true, "data" => "Query Success"));
         }
