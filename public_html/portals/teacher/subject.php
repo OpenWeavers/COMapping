@@ -111,7 +111,7 @@ if (!isset($_SESSION['teacher_login'])) {
                         <div class="col-sm-7">
                             <div class="card">
                                 <div class="card-header" data-background-color="purple">
-                                    <h4 class="title">Maximum CO Mapping for {{ selectedSubject.name}}</h4>
+                                    <h4 class="title">Maximum CO Mapping for {{ selectedSubject.name}} ({{ selectedSubject.subject_code }})</h4>
                                     <p class="category">Enter the maximum CO for each CIE</p>
                                 </div>
                                 <div class="card-content">
