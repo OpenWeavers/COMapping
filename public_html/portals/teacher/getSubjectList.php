@@ -13,7 +13,7 @@ $email = $_SESSION['teacher_login'];
           from subjects
           WHERE staff_id={$_SESSION['staff_id']}";
 */
-$query = "SELECT s.subject_code, s.subject_name, s.section_id, s.semester
+$query = "SELECT s.subject_code, s.subject_name, s.section_id, s.semester, s.no_of_co, s.max_co
             FROM subject_teachers AS st INNER JOIN subject AS s
                   ON (st.subject_code=s.subject_code AND st.section_id=s.section_id)
             WHERE st.staff_id={$_SESSION['staff_id']}";
@@ -25,6 +25,8 @@ if($res = $conn->query( $query)) {
         $data[$i]['name'] = $row['subject_name'];
         $data[$i]['section_id'] = $row['section_id'];
         $data[$i]['semester'] = $row['semester'];
+        $data[$i]['no_of_co'] = $row['no_of_co'];
+        $data[$i]['max_co'] = $row['max_co'];
         $i++;
     }
     echo json_encode(array("success" => true, "data" => json_encode($data)));
