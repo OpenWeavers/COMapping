@@ -5,7 +5,7 @@ app.controller('myController', function ($scope, $window, $http) {
     $scope.noOfCOs = 5;
     $scope.re = "Default";
     $scope.subject = {
-        id: "",
+        subject_code: "",
         CIE: [[], [], [], [], []]
     };
     $scope.subjectList = [];

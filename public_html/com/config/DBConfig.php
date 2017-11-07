@@ -3,4 +3,4 @@
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'Mysql@123');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'StaffAppraisal');
+define('DB_NAME', 'cie_co_db');

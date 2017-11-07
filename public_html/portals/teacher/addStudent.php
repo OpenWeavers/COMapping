@@ -9,13 +9,28 @@ require '../../com/config/DBHelper.php';
 $postdata = file_get_contents("php://input");
 if(isset($postdata) && !empty($postdata))   {
     $request = json_decode($postdata);
-    $db = new DBHelper();
-    $conn = $db->getConnection();
-    $name = $request->name;
-    $cie = $request->cie;
-    $query = "insert into students values ('$name','$cie')";
-    $res = mysqli_query($conn, $query);
-    $data = mysqli_fetch_assoc($res);
-    echo $data."done";
+    if(!empty($request->usn) && !empty($request->subject_code) &&
+        !empty($request->cie))   {
+        $db = new DBHelper();
+        $conn = $db->getConnection();
+        $usn = $request->usn;
+        $subject_code = $request->subject_code;
+        $cie = $request->cie;
+        $query = "INSERT INTO marks(usn, subject_code, cie) 
+                  VALUES('$usn', '$subject_code', '$cie')
+                  ON DUPLICATE KEY UPDATE cie=VALUES(cie)";
+        if($res = $conn->query($query)) {
+            echo json_encode(array("success" => true, "data" => "Query Success"));
+        }
+        else    {
+            echo json_encode(array("success" => false,"data" => "Query Failure"));
+        }
+        $db->closeConnection($conn);
+    }
+    else    {
+        echo json_encode(array("success" => false,"data" => "Required data not available"));
+    }
 }
-$db->closeConnection($conn);
+else    {
+    echo json_encode(array("success" => false,"data" => "Empty POST request."));
+}
