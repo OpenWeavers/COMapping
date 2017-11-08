@@ -6,9 +6,9 @@ if(!isset($_SESSION['teacher_login']))   {
 
 require '../../com/config/DBHelper.php';
 
-$postdata = file_get_contents("php://input");
-if(isset($postdata) && !empty($postdata)) {
-    $request = json_decode($postdata);
+$post_data = file_get_contents("php://input");
+if(isset($post_data) && !empty($post_data)) {
+    $request = json_decode($post_data);
     if(!empty($request->subject_code) && !empty($request->usn))   {
         $db = new DBHelper();
         $conn = $db->getConnection();
