@@ -86,7 +86,7 @@ if (!isset($_SESSION['teacher_login'])) {
             </div>
         </nav>
         <div class="content" ng-app="studentHandler" ng-controller="myController">
-            <form ng-submit="submitSubject()">
+            <form ng-submit="submitStudent()">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3">
