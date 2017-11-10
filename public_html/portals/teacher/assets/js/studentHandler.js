@@ -49,6 +49,25 @@ app.controller('myController', function ($scope, $window, $http) {
         // if max CO matrix exsists, get it
         // else redirect to subject.php
     };
+    $scope.submitStudent = function () {
+        //$scope.selectedSubject.id='CS110';
+        if ($scope.selectedSubject.subject_code && $scope.noOfCOs > 0) {
+            $http({
+                method: 'POST',
+                url: 'addStudentCIE.php',
+                data: {usn:$scope.selectedStudent.usn,subject_code: $scope.selectedSubject.subject_code, cie: JSON.stringify($scope.subject.CIE)}
+            }).then(function (response) {
+                $scope.resp = response.data;
+                alert(response.data.data)
+            }, function (response) {
+                console.log(response.data, response.status);
+            });
+        }
+        else {
+            $window.alert("Insert valid name and number of COs");
+            $window.alert($scope.selectedSubject.subject_code);
+        }
+    };
     $scope.updateIndex = function () {
         index = $scope.studentList.indexOf($scope.selectedStudent);
     };
