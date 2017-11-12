@@ -48,15 +48,15 @@ if(isset($post_data) && !empty($post_data)) {
         */
         $query = "SELECT t1.usn, t1.name, t2.cie
                   FROM (SELECT s.usn, s.name 
-                  FROM student s inner JOIN subject sub ON (s.section_id=sub.section_id AND s.semester=sub.semester)
-                  WHERE   
-                  (sub.subject_code='$subject_code' AND sub.section_id='$section_id')
-                  AND
-                  (
-	                (sub.subject_code NOT IN (SELECT DISTINCT subject_code from electives_taken))
-	                OR
-	                (s.usn IN (SELECT usn FROM electives_taken WHERE subject_code=sub.subject_code))
-                  )) AS t1 INNER JOIN marks AS t2 ON (t1.usn=t2.usn AND t2.subject_code='$subject_code')";
+                        FROM student s inner JOIN subject sub ON (s.section_id=sub.section_id AND s.semester=sub.semester)
+                        WHERE   
+                        (sub.subject_code='CS110' AND sub.section_id='C')
+                        AND
+                        (
+	                      (sub.subject_code NOT IN (SELECT DISTINCT subject_code from electives_taken))
+	                      OR
+	                      (s.usn IN (SELECT usn FROM electives_taken WHERE subject_code=sub.subject_code))
+                        )) t1 LEFT OUTER JOIN marks t2 ON t1.usn=t2.usn";
         $data = [];
         if($res = $conn->query( $query)) {
             $i = 0;
