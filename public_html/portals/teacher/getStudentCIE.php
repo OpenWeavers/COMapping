@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['teacher_login']))   {
     header('location:../../');
 }
-
+//Deprecated
 require '../../com/config/DBHelper.php';
 
 $post_data = file_get_contents("php://input");
