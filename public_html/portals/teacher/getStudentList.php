@@ -50,7 +50,7 @@ if(isset($post_data) && !empty($post_data)) {
                   FROM (SELECT s.usn, s.name 
                         FROM student s inner JOIN subject sub ON (s.section_id=sub.section_id AND s.semester=sub.semester)
                         WHERE   
-                        (sub.subject_code='CS110' AND sub.section_id='C')
+                        (sub.subject_code='$subject_code' AND sub.section_id='$section_id')
                         AND
                         (
 	                      (sub.subject_code NOT IN (SELECT DISTINCT subject_code from electives_taken))
