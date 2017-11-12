@@ -2,12 +2,6 @@ var app = new angular.module('subjectHandler', []);
 
 
 app.controller('myController', function ($scope, $window, $http) {
-    $scope.noOfCOs = 5;
-    $scope.re = "Default";
-    $scope.subject = {
-        subject_code: "",
-        CIE: [[], [], [], [], []]
-    };
     $scope.subjectList = [];
     $scope.selectedSubject = {};
     $scope.getSubjectList = function () {
@@ -16,7 +10,13 @@ app.controller('myController', function ($scope, $window, $http) {
             url: 'getSubjectList.php'
         }).then(function (response) {
             $scope.subjectList = JSON.parse(angular.fromJson(response.data).data);
+            //alert($scope.subjectList[0].max_co);
+            $scope.subjectList.forEach(x => {
+                x.max_co = JSON.parse(x.max_co) || [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+                x.no_of_co = parseInt(x.no_of_co) || 5;
+            });
             $scope.selectedSubject = $scope.subjectList[0];
+            $scope.noOfCOs = $scope.subjectList[0].no_of_co;
         }, function (response) {
             var recieved = angular.fromJson(response.data);
             alert(recieved.data);
@@ -28,9 +28,10 @@ app.controller('myController', function ($scope, $window, $http) {
             $http({
                 method: 'POST',
                 url: 'addSubjectCIE.php',
-                data: {subject_code: $scope.selectedSubject.subject_code, noOfCo:$scope.noOfCOs, section_id:$scope.selectedSubject.section_id, cie: JSON.stringify($scope.subject.CIE)}
+                data: {subject_code: $scope.selectedSubject.subject_code, noOfCo:$scope.selectedSubject.no_of_co, section_id:$scope.selectedSubject.section_id, cie: JSON.stringify($scope.selectedSubject.max_co)}
             }).then(function (response) {
                 $scope.resp = response.data;
+                //alert(JSON.stringify($scope.selectedSubject.max_co));
                 alert("Success")
             }, function (response) {
                 console.log(response.data, response.status);
@@ -50,10 +51,10 @@ app.controller('myController', function ($scope, $window, $http) {
         return txt;
     };
     $scope.changeCO = function () {
-        $scope.subject.CIE = [[], [], [], [], []];
+        $scope.selectedSubject.max_co = [[], [], [], [], []];
         for (var i = 0; i < 5; i++) {
-            for (var j = 0; j < $scope.noOfCOs; j++) {
-                $scope.subject.CIE[i][j] = 0;
+            for (var j = 0; j < $scope.selectedSubject.no_of_co; j++) {
+                $scope.selectedSubject.max_co[i][j] = 0;
             }
         }
     };
