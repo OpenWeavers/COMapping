@@ -141,18 +141,16 @@ if (!isset($_SESSION['teacher_login'])) {
                                         <tr>
                                             <thead class="text-primary">
                                             <th class="text-center "></th>
-                                            <th class="text-center " ng-repeat="row in subject.CIE[0] track by $index">
+                                            <th class="text-center " ng-repeat="row in selectedStudent.cie[0] track by $index">
                                                 CO{{$index + 1}}
                                             </th>
                                             <th class="text-center ">Total</th>
                                             </thead>
                                         </tr>
-                                        <tr ng-repeat="row in subject.CIE">
-
+                                        <tr ng-repeat="row in selectedStudent.cie track by $index">
                                             <td class="text-center ">CIE{{$index + 1}}</td>
                                             <td ng-repeat="cell in row track by $index">
                                                 <input type="number" class=" col-sm-1 text-center form-control"
-                                                       value="{{cell}}"
                                                        ng-model="row[$index]" min="0" step="1">
                                             </td>
                                             <td class=" col-sm-1 text-center">

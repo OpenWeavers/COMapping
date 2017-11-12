@@ -1,15 +1,10 @@
 var app = new angular.module('studentHandler', []);
 app.controller('myController', function ($scope, $window, $http) {
-    $scope.noOfCOs = 5;
     $scope.ress = "Default";
-    $scope.subject = {
-        id: "",
-        CIE: [[], [], [], [], []]
-    };
     $scope.subjectList = [];
     $scope.studentList = [];
-    $scope.selectedSubject = [];
-    $scope.selectedStudent = [];
+    $scope.selectedSubject = {};
+    $scope.selectedStudent = {};
 
     var index = 0;
     var length = $scope.studentList.length;
@@ -32,30 +27,25 @@ app.controller('myController', function ($scope, $window, $http) {
             url: 'getSubjectList.php'
         }).then(function (response) {
             $scope.subjectList = JSON.parse(angular.fromJson(response.data).data);
-            $scope.selectedSubject = null;
+            $scope.subjectList.forEach(x => {
+                x.max_co = JSON.parse(x.max_co);
+                x.no_of_co = parseInt(x.no_of_co);
+            });
+            $scope.selectedSubject = $scope.subjectList[0];
+            $scope.getStudentList();
         }, function (response) {
             var recieved = angular.fromJson(response.data);
             $window.alert(recieved.data);
         });
     };
-    $scope.updateStudent = function () {
-        // Send request to getStudentInfo.php
-        // Param usn,subcode
-        // if cie matrix already filled, display, else zeros
-    };
-    $scope.updateSubject = function () {
-        // To get max CO info
-        // Send request to getSubjectInfo.php
-        // if max CO matrix exsists, get it
-        // else redirect to subject.php
-    };
+
     $scope.submitStudent = function () {
         //$scope.selectedSubject.id='CS110';
-        if ($scope.selectedSubject.subject_code && $scope.noOfCOs > 0) {
+        if ($scope.selectedSubject.subject_code && $scope.selectedSubject.no_of_co > 0) {
             $http({
                 method: 'POST',
                 url: 'addStudentCIE.php',
-                data: {usn:$scope.selectedStudent.usn,subject_code: $scope.selectedSubject.subject_code, cie: JSON.stringify($scope.subject.CIE)}
+                data: {usn:$scope.selectedStudent.usn,subject_code: $scope.selectedSubject.subject_code, cie: JSON.stringify($scope.selectedStudent.cie)}
             }).then(function (response) {
                 $scope.resp = response.data;
                 alert(response.data.data)
@@ -71,15 +61,21 @@ app.controller('myController', function ($scope, $window, $http) {
     $scope.updateIndex = function () {
         index = $scope.studentList.indexOf($scope.selectedStudent);
     };
-    $scope.changeCO = function () {
-        $scope.subject.CIE = [[], [], [], [], []];
-        for (var i = 0; i < 5; i++) {
-            for (var j = 0; j < $scope.noOfCOs; j++) {
-                $scope.subject.CIE[i][j] = 0;
-            }
+    zeros = function (dimensions) {
+        var array = [];
+
+        for (var i = 0; i < dimensions[0]; ++i) {
+            array.push(dimensions.length == 1 ? 0 : zeros(dimensions.slice(1)));
         }
+
+        return array;
     };
     $scope.getStudentList = function () {
+        if( !$scope.selectedSubject.max_co || !$scope.selectedSubject.no_of_co) {
+            alert("Subject Max CIE Is not fIlled" + $scope.selectedSubject.max_co +  $scope.selectedSubject.no_of_co);
+            $window.location.href = "subject.php";
+            return;
+        }
         $http({
             method: 'POST',
             url: 'getStudentList.php',
@@ -89,7 +85,12 @@ app.controller('myController', function ($scope, $window, $http) {
                 section_id: $scope.selectedSubject.section_id
             }
         }).then(function (response) {
+            alert($scope.selectedSubject.max_co);
             $scope.studentList = JSON.parse(angular.fromJson(response.data).data);
+            //alert($scope.studentList[0].cie);
+            $scope.studentList.forEach(
+                x => x.cie = JSON.parse(x.cie) || zeros([5,$scope.selectedSubject.no_of_co])
+            );
             $scope.selectedStudent = $scope.studentList[0];
             length = $scope.studentList.length;
         }, function (response) {
@@ -105,7 +106,7 @@ app.controller('myController', function ($scope, $window, $http) {
         }
         return txt;
     };
-    $scope.changeCO();
+    //$scope.changeCO();
     $scope.getSubjectList();
-    $scope.getStudentList();
+   // $scope.getStudentList();
 });
