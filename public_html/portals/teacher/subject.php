@@ -100,8 +100,8 @@ if (!isset($_SESSION['teacher_login'])) {
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="noOfCOs">Number of COs</label>
-                                <input type="number" id="noOfCOs" class="form-control" ng-model="noOfCOs"
+                                <label class="control-label" for="selectedSubject.no_of_co">Number of COs</label>
+                                <input type="number" id="selectedSubject.no_of_co" class="form-control" ng-model="selectedSubject.no_of_co"
                                        title="Number of CO's " ng-change="changeCO()"/>
                             </div>
                             <div class="text-right">
@@ -119,18 +119,18 @@ if (!isset($_SESSION['teacher_login'])) {
                                         <tr>
                                             <thead class="text-primary">
                                             <th class="text-center "></th>
-                                            <th class="text-center " ng-repeat="row in subject.CIE[0] track by $index">
+                                            <th class="text-center " ng-repeat="row in selectedSubject.max_co[0] track by $index">
                                                 CO{{$index + 1}}
                                             </th>
                                             <th class="text-center ">Total</th>
                                             </thead>
                                         </tr>
-                                        <tr ng-repeat="row in subject.CIE">
+                                        <tr ng-repeat="row in selectedSubject.max_co track by $index">
                                             <td class="text-center ">CIE{{$index + 1}}</td>
-                                            <td ng-repeat="cell in row track by $index">
+                                            <td ng-repeat="cell in row track by $index ">
 
                                                 <input type="number" class=" col-sm-1 text-center form-control"
-                                                       value="{{cell}}"
+
                                                        ng-model="row[$index]" min="0" step="1">
                                             </td>
                                             <td class=" col-sm-1 text-center">
