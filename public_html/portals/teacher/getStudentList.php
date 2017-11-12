@@ -46,7 +46,8 @@ if(isset($post_data) && !empty($post_data)) {
                       AND U.section_id='$section_id'
                       AND U.section_id=SUB.section_id)";
         */
-        $query = "SELECT s.usn, s.name 
+        $query = "SELECT t1.usn, t1.name, t2.cie
+                  FROM (SELECT s.usn, s.name 
                   FROM student s inner JOIN subject sub ON (s.section_id=sub.section_id AND s.semester=sub.semester)
                   WHERE   
                   (sub.subject_code='$subject_code' AND sub.section_id='$section_id')
@@ -55,13 +56,14 @@ if(isset($post_data) && !empty($post_data)) {
 	                (sub.subject_code NOT IN (SELECT DISTINCT subject_code from electives_taken))
 	                OR
 	                (s.usn IN (SELECT usn FROM electives_taken WHERE subject_code=sub.subject_code))
-                  )";
+                  )) AS t1 INNER JOIN marks AS t2 ON (t1.usn=t2.usn AND t2.subject_code='$subject_code')";
         $data = [];
         if($res = $conn->query( $query)) {
             $i = 0;
             while($row = $res->fetch_assoc())   {
                 $data[$i]['usn'] = $row['usn'];
                 $data[$i]['name'] = $row['name'];
+                $data[$i]['cie'] = $row['cie'];
                 $i++;
             }
             echo json_encode(array("success" => true, "data" => json_encode($data)));
