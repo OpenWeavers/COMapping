@@ -85,7 +85,7 @@ app.controller('myController', function ($scope, $window, $http) {
                 section_id: $scope.selectedSubject.section_id
             }
         }).then(function (response) {
-            alert($scope.selectedSubject.max_co);
+            //alert($scope.selectedSubject.max_co);
             $scope.studentList = JSON.parse(angular.fromJson(response.data).data);
             //alert($scope.studentList[0].cie);
             $scope.studentList.forEach(
