@@ -12,13 +12,11 @@ app.controller('myController', function ($scope, $window, $http) {
     $scope.nextStudent = function () {
         if (index < length - 1) {
             $scope.selectedStudent = $scope.studentList[++index];
-            $scope.updateStudent();
         }
     };
     $scope.prevStudent = function () {
         if (index > 0) {
             $scope.selectedStudent = $scope.studentList[--index];
-            $scope.updateStudent();
         }
     };
     $scope.getSubjectList = function () {
@@ -58,9 +56,11 @@ app.controller('myController', function ($scope, $window, $http) {
             $window.alert($scope.selectedSubject.subject_code);
         }
     };
+
     $scope.updateIndex = function () {
         index = $scope.studentList.indexOf($scope.selectedStudent);
     };
+
     zeros = function (dimensions) {
         var array = [];
 
