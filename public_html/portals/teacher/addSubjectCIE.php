@@ -19,7 +19,7 @@ if(isset($post_data) && !empty($post_data)) {
         $subject_code = $request->subject_code;
         $section_id = $request->section_id;
         $query = "UPDATE subject
-                  SET no_of_co='$no_of_co', max_co='$cie'
+                  SET no_of_co=$no_of_co, max_co='$cie'
                   WHERE subject_code='$subject_code'
                         AND section_id='$section_id'";
         if($res = $conn->query($query)) {
