@@ -46,6 +46,7 @@ if($res = $conn->query($query)) {
             $row = $res->fetch_assoc();
             $data[$i]['total_students'] = $row['total_students'];
             $data[$i]['total_entered'] = $row['total_entered'];
+            $data[$i]['cie_entered'] = $row['cie_entered'];
         }
     }
 
