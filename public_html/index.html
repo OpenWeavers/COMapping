@@ -16,7 +16,7 @@
     <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
     <script src="vendor/angularjs/angular.min.js"></script>
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -48,6 +48,9 @@
                         if (result.success) {
                             $window.location.href = result.url;
                         }
+                        else {
+                            $window.alert(result.data)
+                        }
                         console.log(response.data, response.status);
                     }, function (response) {
                         $scope.resp = response.data;
@@ -62,46 +65,41 @@
     </script>
 </head>
 
-<body>
+<body class="hold-transition login-page">
 
-<div class="container">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form"  ng-submit="tryLogin()" ng-app="loginApp" ng-controller="myController">
-                            <fieldset>
-                                <div class="form-group">
-                                    <select name="colors" ng-model="role" id="login_role" class="form-control">
-                                        <option value="" selected disabled>Login as</option>
-                                        <option value="hod">HoD</option>
-                                        <option value="teacher">Teacher</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" ng-model="email" name="email" type="email" autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" ng-model="password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                            </fieldset>
-                        </form>
-                    </div>
+<div class="login-box">
+    <div class="login-logo">
+        <b>CO</b>MS
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form role="form" ng-submit="tryLogin()" ng-app="loginApp" ng-controller="myController">
+            <fieldset>
+                <div class="form-group">
+                    <select name="colors" ng-model="role" id="login_role" class="form-control">
+                        <option value="" selected disabled>Login as</option>
+                        <option value="hod">HoD</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
                 </div>
-            </div>
-        </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="E-mail" ng-model="email" name="email" type="email"
+                           autofocus>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Password" ng-model="password" name="password"
+                           type="password" value="">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                    </label>
+                </div>
+                <!-- Change this to a button or input when using this as a form -->
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+            </fieldset>
+        </form>
+        <a href="signup.html" class="text-center">Register a new membership</a>
     </div>
 
     <!-- jQuery -->
@@ -113,7 +111,7 @@
     <!-- Metis Menu Plugin JavaScript -->
 
     <!-- Custom Theme JavaScript -->
-    <script src="dist/js/sb-admin-2.js"></script>
+    <script src="dist/js/adminlte.js"></script>
 
 </div>
 <footer class="footer">
