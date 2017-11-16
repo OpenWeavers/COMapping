@@ -30,8 +30,8 @@ if($res = $conn->query( $query)) {
     for($i = 0; $i < $num_of_subjects; $i++)  {
         $subject_code = $data[$i]['subject_code'];
         $section_id = $data[$i]['section_id'];
-        $query = "SELECT count(t1.usn) as total_students, count(t2.cie) as total_entered
-                  FROM (SELECT s.usn, s.name 
+        $query = "SELECT count(t1.usn) as total_students, count(t2.cie) as total_entered, (case when t1.max_co IS NULL THEN 0 ELSE 1 END) as cie_entered
+                  FROM (SELECT s.usn, sub.max_co 
                         FROM student s inner JOIN subject sub ON (s.section_id=sub.section_id AND s.semester=sub.semester)
                         WHERE   
                         (sub.subject_code='$subject_code' AND sub.section_id='$section_id')
