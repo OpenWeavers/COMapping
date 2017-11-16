@@ -18,6 +18,7 @@ if(isset($postdata) && !empty($postdata))   {
             if($res->num_rows == 1) {
                 $_SESSION['teacher_login'] = $email;
                 $_SESSION['staff_id'] = $r['staff_id'];
+                $_SESSION['staff_name'] = $r['name'];
                 $_SESSION['category'] = $category;
                 //header('location:portals/teacher/');
                 echo json_encode(array("success" => true, "data" => "Login success",
