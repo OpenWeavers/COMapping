@@ -25,6 +25,7 @@ if (!isset($_SESSION['teacher_login'])) {
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <script src="../../vendor/angularjs/angular.min.js"></script>
+    <script src="assets/js/infoHandler.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -106,13 +107,32 @@ if (!isset($_SESSION['teacher_login'])) {
             </ul>
         </section>
     </aside>
-    <div class="content-wrapper">
+    <div class="content-wrapper"  ng-app="infoHandler" ng-controller="myController" >
         <section class="content-header">
             <h1>
                 Teacher Dashboard
             </h1>
         </section>
         <section class="content">
+            <div class="box">
+                <div class="box-header">
+                    Details of the Subjects
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table">
+                        <tr>
+                        <thead>
+                            <th ng-repeat="x in properties"> {{ x }}</th>
+                        </thead>
+                        </tr>
+                        <tr ng-repeat="subject in subInfo">
+                            <td ng-repeat="prop in subject">
+                                {{ prop }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </section>
     </div>
     <!-- jQuery -->
