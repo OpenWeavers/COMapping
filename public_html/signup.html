@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Signup Page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.css">
+    <script src="vendor/angularjs/angular.min.js"></script>
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
+    <script type="text/javascript">
+        var app = new angular.module("loginApp", []);
+        app.controller("myController", function ($scope, $http, $window) {
+            $scope.role = "hod";
+            $scope.resp = '';
+            $scope.tryLogin = function () {
+                if ($scope.email && $scope.password) {
+                    $http({
+                        method: 'POST',
+                        url: 'login.php',
+                        data: {email: $scope.email, password: $scope.password, category: $scope.role}
+                    }).then(function (response) {
+                        var result = angular.fromJson(response.data);
+                        $scope.resp = result.data;
+                        if (result.success) {
+                            $window.location.href = result.url;
+                        }
+                        else {
+                            $window.alert(result.data)
+                        }
+                        console.log(response.data, response.status);
+                    }, function (response) {
+                        $scope.resp = response.data;
+                        console.log(response.data, response.status);
+                    })
+                }
+                else {
+                    $window.alert("Enter required fields");
+                }
+            };
+        })
+    </script>
+</head>
+
+<body class="hold-transition login-page">
+
+<div class="login-box">
+    <div class="login-logo">
+        <b>CO</b>MS
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign up to start your session</p>
+        <form role="form" ng-submit="tryLogin()" ng-app="loginApp" ng-controller="myController">
+            <fieldset>
+                <div class="form-group">
+                    <select name="colors" ng-model="role" id="login_role" class="form-control">
+                        <option value="" selected disabled>Login as</option>
+                        <option value="hod">HoD</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="E-mail" ng-model="email" name="email" type="email"
+                           autofocus>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Password" ng-model="password" name="password"
+                           type="password" value="">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Confirm Password" ng-model="cpassword" name="password"
+                           type="password" value="">
+                </div>
+                <!-- Change this to a button or input when using this as a form -->
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/adminlte.js"></script>
+
+</div>
+<footer class="footer">
+    <div class="container" align="center">
+        <span class="text-muted">&copy; Copyright 2017 Vinyas N S, Vishakha M, Vinayaka K V</span>
+    </div>
+</footer>
+</body>
+</html>
