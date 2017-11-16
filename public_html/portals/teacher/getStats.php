@@ -17,7 +17,7 @@ ON (st.subject_code=s.subject_code AND st.section_id=s.section_id)
 WHERE st.staff_id='$staff_id'";
 
 $data = [];
-if($res = $conn->query( $query)) {
+if($res = $conn->query($query)) {
     $i = 0;
     while($row = $res->fetch_assoc())   {
         $data[$i]['subject_code'] = $row['subject_code'];
@@ -25,7 +25,7 @@ if($res = $conn->query( $query)) {
         $data[$i]['section_id'] = $row['section_id'];
         $i++;
     }
-    $num_of_subjects = $i + 1;
+    $num_of_subjects = $i;
 
     for($i = 0; $i < $num_of_subjects; $i++)  {
         $subject_code = $data[$i]['subject_code'];
