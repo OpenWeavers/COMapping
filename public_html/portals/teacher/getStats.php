@@ -11,7 +11,7 @@ $conn = $db->getConnection();
 $email = $_SESSION['teacher_login'];
 $staff_id = $_SESSION['staff_id'];
 
-$query1 = "SELECT s.subject_code, s.subject_name, s.section_id
+$query = "SELECT s.subject_code, s.subject_name, s.section_id
 FROM subject_teachers AS st INNER JOIN subject AS s
 ON (st.subject_code=s.subject_code AND st.section_id=s.section_id)
 WHERE st.staff_id='$staff_id'";
