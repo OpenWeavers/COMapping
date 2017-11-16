@@ -70,6 +70,15 @@ app.controller('myController', function ($scope, $window, $http) {
 
         return array;
     };
+
+    $scope.not_valid_cie = zeros([5,$scope.selectedSubject.no_of_co]);
+
+    $scope.validate_cie = function(r,c) {
+        $scope.not_valid_cie[r][c] = $scope.selectedStudent.cie[r][c] > $scope.selectedSubject.max_co[r][c]
+            || $scope.selectedStudent.cie[r][c] < 0
+            || $scope.selectedStudent.cie[r][c] !== parseInt($scope.selectedStudent.cie[r][c], 10);
+    };
+
     $scope.getStudentList = function () {
         if( !$scope.selectedSubject.max_co || !$scope.selectedSubject.no_of_co) {
             alert("Subject Max CIE Is not fIlled" + $scope.selectedSubject.max_co +  $scope.selectedSubject.no_of_co);
@@ -106,7 +115,5 @@ app.controller('myController', function ($scope, $window, $http) {
         }
         return txt;
     };
-    //$scope.changeCO();
     $scope.getSubjectList();
-   // $scope.getStudentList();
 });

@@ -154,8 +154,9 @@ if (!isset($_SESSION['teacher_login'])) {
                     <div class="col-lg-7">
                         <div class="box">
                             <div class="box-header">
-                                Enter CO scored by {{selectedStudent.name}} in
-                                {{selectedSubject.name}}
+                                <h4>Enter CO scored by <i>{{selectedStudent.name}}</i> in
+                                    {{selectedSubject.name}}</h4>
+
                             </div>
                             <div class="box-body table-responsive no-padding">
                                 <table id="cie_table" class="table table-hover">
@@ -172,8 +173,10 @@ if (!isset($_SESSION['teacher_login'])) {
                                     <tr ng-repeat="row in selectedStudent.cie track by $index">
                                         <td class="text-center ">CIE{{$index + 1}}</td>
                                         <td ng-repeat="cell in row track by $index">
+                                            <div class="form-group" ng-class="{'has-error': not_valid_cie[$parent.$index][$index]}">
                                             <input type="number" class=" col-sm-1 text-center form-control"
-                                                   ng-model="row[$index]" min="0" step="1">
+                                                   ng-model="row[$index]" min="0" step="1" ng-change="validate_cie($parent.$index,$index)">
+                                            </div>
                                         </td>
                                         <td class=" col-sm-1 text-center">
                                             {{getTotal(row)}}
