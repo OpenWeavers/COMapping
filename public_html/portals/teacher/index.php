@@ -24,8 +24,83 @@ if (!isset($_SESSION['teacher_login'])) {
     <link href="../../vendor/Ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../../vendor/angularjs/angular.min.js"></script>
     <script src="assets/js/infoHandler.js"></script>
+
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../../dist/js/fastclick.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../dist/js/adminlte.js"></script>
+
+    <script src="../../vendor/jquery-knob/js/jquery.knob.js"></script>
+
+    <script>
+        $(function () {
+            /* jQueryKnob */
+
+            $(".knob").knob({
+                /*change : function (value) {
+                 //console.log("change : " + value);
+                 },
+                 release : function (value) {
+                 console.log("release : " + value);
+                 },
+                 cancel : function () {
+                 console.log("cancel : " + this.value);
+                 },*/
+                draw: function () {
+
+                    // "tron" case
+                    if (this.$.data('skin') == 'tron') {
+
+                        var a = this.angle(this.cv)  // Angle
+                            , sa = this.startAngle          // Previous start angle
+                            , sat = this.startAngle         // Start angle
+                            , ea                            // Previous end angle
+                            , eat = sat + a                 // End angle
+                            , r = true;
+
+                        this.g.lineWidth = this.lineWidth;
+
+                        this.o.cursor
+                        && (sat = eat - 0.3)
+                        && (eat = eat + 0.3);
+
+                        if (this.o.displayPrevious) {
+                            ea = this.startAngle + this.angle(this.value);
+                            this.o.cursor
+                            && (sa = ea - 0.3)
+                            && (ea = ea + 0.3);
+                            this.g.beginPath();
+                            this.g.strokeStyle = this.previousColor;
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                            this.g.stroke();
+                        }
+
+                        this.g.beginPath();
+                        this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                        this.g.stroke();
+
+                        this.g.lineWidth = 2;
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.o.fgColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                        this.g.stroke();
+
+                        return false;
+                    }
+                }
+            })
+        });
+        /* END JQUERY KNOB */
+    </script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -186,6 +261,9 @@ if (!isset($_SESSION['teacher_login'])) {
                             <td ng-repeat="prop in properties">
                                 {{ subject[prop] }}
                             </td>
+                            <td>
+                                <button class="btn btn-flat" ng-click="calculate(subject)">Get Stats</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -201,10 +279,29 @@ if (!isset($_SESSION['teacher_login'])) {
                         </div>
                         <div class="box-body">
                             <div class="col-xs-6 col-md-3 text-center" ng-repeat="subject in subInfo">
-                                <input type="text" class="knob" value="{{subject.percentage}}" data-width="120" data-height="120"
-                                       data-fgColor="#3c8dbc"  data-readonly="true">
+                                <input type="text" class="knob" value="{{subject.percentage}}" data-width="120"
+                                       data-height="120"
+                                       data-fgColor="#3c8dbc" data-readonly="true">
 
                                 <div class="knob-label">{{subject.subject_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- jQuery Knob -->
+                    <div class="box box-solid">
+                        <div class="box-header">
+                            <i class="fa fa-bar-chart-o"></i>
+
+                            <h3 class="box-title">Summary Resutls</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div id="cie_chart_div" class=" col-md-6"></div>
+                                <div id="co_chart_div" class=" col-md-6"></div>
                             </div>
                         </div>
                     </div>
@@ -213,78 +310,6 @@ if (!isset($_SESSION['teacher_login'])) {
         </section>
     </div>
     <!-- jQuery -->
-    <script src="../../vendor/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="../../dist/js/fastclick.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../../dist/js/adminlte.js"></script>
-
-    <script src="../../vendor/jquery-knob/js/jquery.knob.js"></script>
-
-    <script>
-        $(function () {
-            /* jQueryKnob */
-
-            $(".knob").knob({
-                /*change : function (value) {
-                 //console.log("change : " + value);
-                 },
-                 release : function (value) {
-                 console.log("release : " + value);
-                 },
-                 cancel : function () {
-                 console.log("cancel : " + this.value);
-                 },*/
-                draw: function () {
-
-                    // "tron" case
-                    if (this.$.data('skin') == 'tron') {
-
-                        var a = this.angle(this.cv)  // Angle
-                            , sa = this.startAngle          // Previous start angle
-                            , sat = this.startAngle         // Start angle
-                            , ea                            // Previous end angle
-                            , eat = sat + a                 // End angle
-                            , r = true;
-
-                        this.g.lineWidth = this.lineWidth;
-
-                        this.o.cursor
-                        && (sat = eat - 0.3)
-                        && (eat = eat + 0.3);
-
-                        if (this.o.displayPrevious) {
-                            ea = this.startAngle + this.angle(this.value);
-                            this.o.cursor
-                            && (sa = ea - 0.3)
-                            && (ea = ea + 0.3);
-                            this.g.beginPath();
-                            this.g.strokeStyle = this.previousColor;
-                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-                            this.g.stroke();
-                        }
-
-                        this.g.beginPath();
-                        this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                        this.g.stroke();
-
-                        this.g.lineWidth = 2;
-                        this.g.beginPath();
-                        this.g.strokeStyle = this.o.fgColor;
-                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                        this.g.stroke();
-
-                        return false;
-                    }
-                }
-            })
-        });
-        /* END JQUERY KNOB */
-    </script>
 </body>
 </html>
